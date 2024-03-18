@@ -1,3 +1,14 @@
+# Como rodar o projeto
+
+Apenas executar os comandos:
+
+- `npm install`
+- `npm run dev`
+
+## Imagem demonstrando
+
+![pokemons.gif](pokemons.gif)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

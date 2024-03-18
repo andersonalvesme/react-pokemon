@@ -18,7 +18,7 @@ export default function PokemonCardListItem({ pokemon }: IPokemonCardListItem) {
   return (
     <div
       className={classNames('flex items-center space-x-4 p-2 transition-all rounded', {
-        'bg-accent': context.selectedItem === pokemon.id,
+        'bg-gray-400': context.selectedItem === pokemon.id,
       })}
       onMouseOver={() => context.setSelectedItem(pokemon.id)}
     >
