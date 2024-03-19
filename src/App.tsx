@@ -8,11 +8,9 @@ const queryClient = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="w-[450px] mx-auto my-4">
         <PokemonProvider>
           <PokemonCard/>
         </PokemonProvider>
-      </div>
     </QueryClientProvider>
   )
 }

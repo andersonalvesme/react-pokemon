@@ -9,22 +9,39 @@ interface IPokemonCardListItem {
   pokemon: PokemonType
 }
 
-export default function PokemonCardListItem({ pokemon }: IPokemonCardListItem) {
+function PokemonCardListItem({ pokemon }: IPokemonCardListItem) {
   const context = useContext(PokemonContext)
 
+  const getBgColor = useMemo(() => {
+    const colors: string[] = [
+      'bg-green-500',
+      'bg-red-500',
+      'bg-blue-500',
+      'bg-yellow-500',
+      'bg-orange-500',
+      'bg-amber-500',
+      'bg-lime-500',
+      'bg-emerald-500',
+      'bg-teal-500',
+      'bg-cyan-500',
+      'bg-sky-500',
+    ]
+
+    return colors[Math.floor(Math.random() * colors.length)]
+  }, [])
+
   const pokemonFallback = pokemon.name.split('-', 2).map((chunk) => chunk[0]).join('').toUpperCase();
-  const colorClass = useMemo(() => context.getItemBgColor(pokemonFallback), [pokemonFallback])
 
   return (
     <div
       className={classNames('flex items-center space-x-4 p-2 transition-all rounded', {
-        'bg-gray-400': context.selectedItem === pokemon.id,
+        'bg-accent': context.selectedItem === pokemon.id,
       })}
       onMouseOver={() => context.setSelectedItem(pokemon.id)}
     >
       <Avatar>
         <AvatarImage alt={pokemon.name}/>
-        <AvatarFallback className={colorClass}>
+        <AvatarFallback className={getBgColor}>
           {pokemonFallback}
         </AvatarFallback>
       </Avatar>
@@ -39,3 +56,5 @@ export default function PokemonCardListItem({ pokemon }: IPokemonCardListItem) {
     </div>
   )
 }
+
+export default PokemonCardListItem

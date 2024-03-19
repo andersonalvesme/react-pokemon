@@ -4,6 +4,7 @@ import { PokemonSlimType } from "@/shared/types/pokemon.type.ts";
 import PokemonCardListItem from "@/pages/pokemon/PokemonCardListItem.tsx";
 import { useContext, useEffect } from "react";
 import { PokemonContext } from "@/shared/contexts/PokemonContext.tsx";
+import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 
 const KEY_POKEMONS = "POKEMONS";
 const KEY_POKEMON = "POKEMON";
@@ -31,7 +32,7 @@ const usePokemons = (pokemons: PokemonSlimType[] = []) => {
   });
 };
 
-export default function PokemonCardList() {
+function PokemonCardList() {
   const context = useContext(PokemonContext);
   const { data: pokemonsSlim } = usePokemonsSlim();
   const { data: pokemons, isPending } = usePokemons(pokemonsSlim?.results);
@@ -76,13 +77,14 @@ export default function PokemonCardList() {
   }, [filtered]);
 
   return (
-    <div className="flex flex-col gap-2 mt-4">
+    <ScrollArea className="h-[calc(100vh-11rem)]">
       {isPending && <small>Carregando...</small>}
       {!isPending && filtered.map((pokemon) => {
         if (!pokemon) return
         return <PokemonCardListItem key={pokemon?.id} pokemon={pokemon}/>
       })}
-    </div>
-
+    </ScrollArea>
   )
 }
+
+export default PokemonCardList
