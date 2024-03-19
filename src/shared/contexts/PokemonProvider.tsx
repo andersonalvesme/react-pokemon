@@ -16,7 +16,6 @@ const INITIAL_STATE = {
 
 export function PokemonProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(pokemonReducer, INITIAL_STATE)
-  const colorCombinations: { [index: string]: boolean } = {}
 
   const setSearch = (value: string) => {
     dispatch({
@@ -39,43 +38,12 @@ export function PokemonProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  const getItemBgColor = (value: string) => {
-    let colorCount: number = 1
-    let colorFound = undefined
-    const colors: string[] = [
-      'bg-green-500',
-      'bg-red-500',
-      'bg-blue-500',
-      'bg-yellow-500',
-      'bg-orange-500',
-      'bg-amber-500',
-      'bg-lime-500',
-      'bg-emerald-500',
-      'bg-teal-500',
-      'bg-cyan-500',
-      'bg-sky-500',
-    ]
-
-    while (colorFound === undefined) {
-      colorFound = colors.find(color => !colorCombinations[colorCount + value + color])
-
-      if (colorFound) {
-        colorCombinations[colorCount + value + colorFound] = true
-      } else {
-        colorCount += 1
-      }
-    }
-
-    return colorFound
-  }
-
   return (
     <PokemonContext.Provider value={{
       ...state,
       setSearch,
       setSearchFocus,
       setSelectedItem,
-      getItemBgColor,
     }}>
       {children}
     </PokemonContext.Provider>
